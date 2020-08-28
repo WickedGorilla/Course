@@ -8,7 +8,6 @@ namespace Task1
         {
             Object[] objects = new Object[]
             {
-
                 new Object(5, 5, true),
                 new Object(10, 10, true),
                 new Object(15, 15, true)
