@@ -29,9 +29,9 @@ namespace Task3
 
     class Movement
     {
-        public float MovementSpeed { get; private set; }
-        public float MovementDirectionX { get; private set; }
-        public float MovementDirectionY { get; private set; }
+        public float Speed { get; private set; }
+        public float DirectionX { get; private set; }
+        public float DirectionY { get; private set; }
 
         public void DoMove()
         {
