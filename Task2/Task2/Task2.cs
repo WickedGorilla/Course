@@ -32,8 +32,14 @@ namespace Task2
 
     class Item
     {
-        public int Count { get; set; }
-        public string Name { get; set; }
+        public int Count { get; private set; }
+        public string Name { get; private set; }
+        
+        public Item(int count, string name) 
+        {
+            Count = count;
+            Name  =  name;
+        }
     }
 
 }
