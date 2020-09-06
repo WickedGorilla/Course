@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Task1
 {
@@ -19,24 +19,20 @@ namespace Task1
             {
                 for (int i = 0; i < objects.Length; i++)
                 {
-                    for (int j = 0; i < objects.Length; j++)
+                    for (int j = 0; j != i; j++)
                     {
-                        if (j >= i) continue;
-                        CheckReached(objects[i], objects[j]);
+                        bool isAlive = CheckIsAlive(objects[i], objects[j]);
+
+                        objects[i].Move(random.Next(-1, 1), random.Next(-1, 1));
+
+                        if (isAlive)
+                        {
+                            int output = i + 1;
+                            Render(objects[i], output.ToString());
+                        }
                     }
                 }
 
-                for (int i = 0; i < objects.Length; i++)
-                {
-                    objects[i].Move(random.Next(-1, 1), random.Next(-1, 1));
-                    objects[i].Normalize();
-
-                    if (objects[i].IsAlive)
-                    {
-                        int output = i + 1;
-                        Render(objects[i], output.ToString());
-                    }
-                }
             }
         }
 
@@ -46,13 +42,12 @@ namespace Task1
             Console.Write(output);
         }
 
-        public static void CheckReached(Object object1, Object object2)
+        public static bool CheckIsAlive(Object object1, Object object2)
         {
             if (object1.X == object2.X && object1.Y == object2.Y)
-            {
-                object1.IsAlive = false;
-                object2.IsAlive = false;
-            }
+                return false;
+            else
+                return true;
         }
 
     }
@@ -61,28 +56,22 @@ namespace Task1
     {
         public int X { get; private set; }
         public int Y { get; private set; }
-        public bool IsAlive { get; set; }
 
-        public Object(int x, int y, bool isAlive)
+        public Object(int x, int y)
         {
             X = x;
             Y = y;
-            IsAlive = isAlive;
         }
 
-        public void Move(int xForce, int yForce)
+        public void Move(int xVelocity, int yVelocity)
         {
-            X += xForce;
-            Y += yForce;
+            X += xVelocity;
+            Y += yVelocity;
+
+            if (X < 0) xVelocity = 0;
+            if (Y < 0) yVelocity = 0;
         }
 
-        public void Normalize()
-        {
-            if (X < 0) X = 0;
-            if (Y < 0) Y = 0;
-        }
     }
 
 }
-
-
