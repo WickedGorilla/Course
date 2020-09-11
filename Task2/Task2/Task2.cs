@@ -12,15 +12,18 @@ namespace Task2
         public void AddItem(string name, int count)
         {
             int currentWeidth = Items.Sum(item => item.Count);
+
+            if (currentWeidth + count > MaxWeidth) return;
+
             Item targetItem = Items.FirstOrDefault(item => item.Name == name);
 
             if (targetItem == null)
-                throw new InvalidOperationException();
+            {
+                targetItem = new Item(name, count)
+                Items.Add(targetItem);
+            } 
+            else targetItem.Count += count;
 
-            if (currentWeidth + count > MaxWeidth)
-                throw new InvalidOperationException();
-
-            targetItem.Count += count;
         }
 
         public Item GetItem(string name)
@@ -32,13 +35,13 @@ namespace Task2
 
     class Item
     {
-        public int Count { get; private set; }
+        public int Count { get; set; }
         public string Name { get; private set; }
         
-        public Item(int count, string name) 
+        public Item(string name, int count) 
         {
+            Name = name;
             Count = count;
-            Name  =  name;
         }
     }
 
