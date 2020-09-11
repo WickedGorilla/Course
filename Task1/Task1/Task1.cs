@@ -21,11 +21,11 @@ namespace Task1
                 {
                     for (int j = 0; j != i; j++)
                     {
-                        bool isAlive = CheckIsAlive(objects[i], objects[j]);
+                        bool isEqualObjects = CheckQualityObjects(objects[i], objects[j]);
 
                         objects[i].Move(random.Next(-1, 1), random.Next(-1, 1));
 
-                        if (isAlive)
+                        if (isEqualObjects)
                         {
                             int output = i + 1;
                             Render(objects[i], output.ToString());
@@ -42,7 +42,7 @@ namespace Task1
             Console.Write(output);
         }
 
-        public static bool CheckIsAlive(Object object1, Object object2)
+        public static bool CheckQualityObjects(Object object1, Object object2)
         {
             if (object1.X == object2.X && object1.Y == object2.Y)
                 return false;
