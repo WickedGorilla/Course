@@ -6,9 +6,9 @@ namespace Lesson2_Task1
     {
         public int Health { get; private set; }
 
-        public virtual void TakeDamage(int damage)
-        {
-            Health -= damage;
+        public void TakeDamage(int damage)
+        {            
+            Health -= CalculatedDamage(damage); ;
 
             if (Health <= 0)
             {
@@ -16,16 +16,17 @@ namespace Lesson2_Task1
             }
         }
 
+        public abstract int CalculatedDamage(int damage);
+
     }
 
     class Wombat : Character
     {
         public int Armor { get; private set; }
 
-        public override void TakeDamage(int damage) 
+        public override int CalculatedDamage(int damage)
         {
-            int calculatedDamage = damage - Armor;
-            base.TakeDamage(calculatedDamage);
+           return damage - Armor;
         }
     }
 
@@ -33,10 +34,9 @@ namespace Lesson2_Task1
     {
         public int Agility { get; private set; }
 
-        public override void TakeDamage(int damage)
+        public override int CalculatedDamage(int damage)
         {
-            int calculatedDamage = damage / Agility;
-            base.TakeDamage(calculatedDamage);
+            return damage / Agility;
         }
     }
 }
