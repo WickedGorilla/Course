@@ -11,22 +11,24 @@ namespace Lesson2_Task3
         }
     }
 
-
     public interface IProduct
     {
-        public string Name { get; }
-        public int Price { get; }
+        string Name { get; }
+        int Price { get; }
+        bool DeliveryIsPossible { get; }
     }
 
     public class Product : IProduct
     {
         public string Name { get; }
-        public virtual int Price { get; private set; }
+        public int Price { get; private set; }
+        public bool DeliveryIsPossible { get; }
 
-        public Product(string name, int price)
+        public Product(string name, int price, bool deliveryIsPossible)
         {
             Name = name;
             Price = price;
+            DeliveryIsPossible = deliveryIsPossible;
         }
 
         public void EditPrice(int newPrice)
@@ -46,6 +48,7 @@ namespace Lesson2_Task3
     {
         public Product MainProduct { get; }
         public int DiscountPercent { get; }
+        public bool DeliveryIsPossible => false;
 
         public string Name
         {
@@ -71,6 +74,5 @@ namespace Lesson2_Task3
         }
 
     }
-
 
 }
