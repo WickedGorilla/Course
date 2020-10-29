@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,10 +18,15 @@ namespace Task2
 
             if (targetItem == null)
             {
-                targetItem = new Item(name, count)
+                targetItem = new Item(name, count);
                 Items.Add(targetItem);
-            } 
-            else targetItem.Count += count;
+            }
+            else 
+            {
+                Items.Remove(targetItem);
+                Item updateItem = new Item(name, count + targetItem.Count);
+                Items.Add(updateItem);
+            }
 
         }
 
@@ -35,10 +39,10 @@ namespace Task2
 
     class Item
     {
-        public int Count { get; set; }
+        public int Count { get; }
         public string Name { get; private set; }
-        
-        public Item(string name, int count) 
+
+        public Item(string name, int count)
         {
             Name = name;
             Count = count;
