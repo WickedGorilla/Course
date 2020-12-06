@@ -5,14 +5,15 @@ namespace Task2
 {
     class Bag
     {
-        public List<Item> Items { get; private set; }
+        private List<Item> Items { get; set; }
         public int MaxWeidth { get; private set; }
 
         public void AddItem(string name, int count)
         {
             int currentWeidth = Items.Sum(item => item.Count);
 
-            if (currentWeidth + count > MaxWeidth) return;
+            if (currentWeidth + count > MaxWeidth)
+                return;
 
             Item targetItem = Items.FirstOrDefault(item => item.Name == name);
 
@@ -21,32 +22,37 @@ namespace Task2
                 targetItem = new Item(name, count);
                 Items.Add(targetItem);
             }
-            else 
-            {
-                Items.Remove(targetItem);
-                Item updateItem = new Item(name, count + targetItem.Count);
-                Items.Add(updateItem);
-            }
-
+            else           
+                targetItem.Count += count;
         }
 
-        public Item GetItem(string name)
+        public List<IItem> GetItems()
         {
-            return Items.Find(item => item.Name == name);
+            List<IItem> items = new List<IItem>();
+            foreach (var item in Items)
+                items.Add(item);
+           
+            return items;
         }
 
     }
 
-    class Item
+    class Item : IItem
     {
-        public int Count { get; }
-        public string Name { get; private set; }
+        public int Count { get; set; }
+        public string Name { get; }
 
         public Item(string name, int count)
         {
             Name = name;
             Count = count;
         }
+    }
+
+    interface IItem
+    {
+        int Count { get; }
+        string Name { get; }
     }
 
 }
