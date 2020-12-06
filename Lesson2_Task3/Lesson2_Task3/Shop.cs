@@ -3,40 +3,27 @@ using System.Collections.Generic;
 
 namespace Lesson2_Task3
 {
-    class Shop
-    {
-        static void Main(string[] args)
-        {
-
-        }
-    }
-
     public interface IProduct
     {
         string Name { get; }
         int Price { get; }
-        bool DeliveryIsPossible { get; }
+        bool IsDeliveriable { get; }
     }
 
     public class Product : IProduct
     {
         public string Name { get; }
-        public int Price { get; private set; }
-        public bool DeliveryIsPossible { get; }
+        public int Price { get; set; }
+        public bool IsDeliveriable { get; }
 
         public Product(string name, int price, bool deliveryIsPossible)
         {
             Name = name;
             Price = price;
-            DeliveryIsPossible = deliveryIsPossible;
+            IsDeliveriable = deliveryIsPossible;
         }
 
-        public void EditPrice(int newPrice)
-        {
-            Price = newPrice;
-        }
-
-        public DiscountedProduct GetDiscountedProduct(int percent)
+        public DiscountedProduct Discount(int percent)
         {
             DiscountedProduct discountedProduct = new DiscountedProduct(this, percent);         
             return discountedProduct;
@@ -48,15 +35,9 @@ namespace Lesson2_Task3
     {
         public Product MainProduct { get; }
         public int DiscountPercent { get; }
-        public bool DeliveryIsPossible => false;
+        public bool IsDeliveriable => false;
 
-        public string Name
-        {
-            get
-            { 
-                return $"{MainProduct.Name} (Со скидкой {DiscountPercent}%)";
-            }
-        }
+        public string Name => $"{MainProduct.Name} (Со скидкой {DiscountPercent}%)";
 
         public int Price
         {
